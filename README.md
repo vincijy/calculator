@@ -68,3 +68,79 @@ var isSymbol = function(e) {
 }
 
 ```
+
+#### 将token序列转化为方便求值的结构
+
+```
+var makeTree = function(tokens) {
+  var skips = 0
+  var ret = {
+    tree: [],
+    count: 0
+  }
+  for(var i=0; i<tokens.length; i++) {
+    var e = tokens[i]
+    ret.count ++
+    if(skips > 0) {
+      skips --
+      continue
+    }
+    if (e === ')') {
+      return ret
+    } else if( e === '(') {
+      var right = cutRight(tokens, i)
+      var sub = makeTree(right)
+      ret.tree.push(sub.tree)
+      skips = sub.count
+    } else {
+      ret.tree.push(e)
+    }
+  }
+  return ret
+}
+```
+
+#### 求值
+
+```
+var evalExpr = function(tokens) {
+  if(tokens.length == 1) {
+    var token = tokens[0]
+    if(isArray(token)) {
+      return evalExpr(token)
+    } else {
+      return token
+    }
+  }else{
+    var sign = ''
+    var cutIndex = 0
+    for(var i=0; i<tokens.length; i++) {
+      token = tokens[i]
+      if (token == '+' || token == '-') {
+        sign = token
+        cutIndex = i
+        break
+      }
+      if (token == '*' || token == '/') {
+        sign = token
+        cutIndex = i
+        continue
+      }
+    }
+
+    var left = cutLeft(tokens, cutIndex)
+    var right = cutRight(tokens, cutIndex)
+
+    switch(sign) {
+      case '+':
+      return evalExpr(left) + evalExpr(right)
+      case '-':
+      return evalExpr(left) - evalExpr(right)
+      case '*':
+      return evalExpr(left) * evalExpr(right)
+      case '/':
+      return evalExpr(left) / evalExpr(right)
+    }
+  }
+}
+```
