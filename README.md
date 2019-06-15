@@ -101,7 +101,7 @@ var makeTree = function(tokens) {
 ```
 
 #### 求值
-
+evalExpr函数寻找表达式的运算符， 以运算符为切割点，将表达式分割为左右两个子表达式，对左右子表达式继续进行递归处理。
 ```
 var evalExpr = function(tokens) {
   if(tokens.length == 1) {
