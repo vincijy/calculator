@@ -70,6 +70,14 @@ var isSymbol = function(e) {
 ```
 
 #### 将token序列转化为方便求值的结构
+可以将括号内的token序列作为一个叶子结点，构建一颗树。
+```
+>>  makeTree([1, "+", "(", 2, "+", 3, ")"])
+    {
+      tree: [1, "+", [2, "+", 3]],
+      count: 7
+    }
+```
 
 ```
 var makeTree = function(tokens) {
