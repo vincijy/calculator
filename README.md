@@ -143,4 +143,8 @@ var evalExpr = function(tokens) {
     }
   }
 }
+
+var isArray = function(e) {
+  return Array.isArray(e)
+}
 ```
