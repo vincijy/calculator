@@ -16,7 +16,7 @@
 ```
 
 
-词法分析的实现， 基本思想就是根据字符的属性进行分发处理
+词法分析的实现， 基本思想就是根据字符的属性进行分发处理。
 
 ```
 var tokenize = function(s){
@@ -55,7 +55,10 @@ var cutLeft = function(tokens, cutIndex) {
 var cutRight = function(tokens, cutIndex) {
   return tokens.slice(cutIndex+1, tokens.length)
 }
+```
 
+这里将字符分为两类:
+```
 var isNum = function(e) {
   return '.0123456789'.includes(e)
 }
